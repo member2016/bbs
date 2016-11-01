@@ -1,0 +1,265 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hailang</groupId>
+    <artifactId>shoe-sso</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <struts2.version>2.3.1.2</struts2.version>
+        <pp.dir.log>${user.home}/logs</pp.dir.log>
+        <pp.dir.maven>${user.home}/maven.output</pp.dir.maven>
+        <pp.dir.exploded>${pp.dir.maven}/${artifactId}/exploded</pp.dir.exploded>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <final.name>sso</final.name>
+        <packaging.excludes/>
+        <hibernate.showsql>true</hibernate.showsql>
+        <jms.broker>failover:nio://192.168.10.10:61616</jms.broker>
+        <pp.log.level>DEBUG</pp.log.level>
+        <pp.struts.devmode>true</pp.struts.devmode>
+        <pp.upload.max>10485760</pp.upload.max>
+        <pp.dir.tmp>c:\tmp\</pp.dir.tmp>
+    </properties>
+
+    <build>
+        <finalName>${final.name}</finalName>
+        <directory>${pp.dir.maven}/${artifactId}</directory>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <webappDirectory>${pp.dir.exploded}</webappDirectory>
+                    <packagingExcludes>${packaging.excludes}</packagingExcludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
+
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.9.1</version>
+            </plugin>
+
+        </plugins>
+    </build>
+    <dependencies>
+
+        <!--======================================================-->
+        <!--Internal Dependencies-->
+        <!--======================================================-->
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-constant</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-framework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-general</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-thirdparty</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-cms</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-music</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pengpeng</groupId>
+            <artifactId>pp-film-chips</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--======================================================-->
+        <!--Private Dependencies-->
+        <!--======================================================-->
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-sitemesh-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-rest-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-convention-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <!-- spymemcached -->
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.spymemcached</artifactId>
+            <version>2.5_2</version>
+        </dependency>
+
+        <!-- RSA -->
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>140</version>
+        </dependency>
+
+        <dependency>
+            <groupId>tencent-oauth2</groupId>
+            <artifactId>tencent-oauth2</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+    <distributionManagement>
+        <repository>
+            <name>Release Respository</name>
+            <id>release-server</id>
+            <url>http://192.168.10.10:8081/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <name>Snapshot Respository</name>
+            <id>snapshot-server</id>
+            <url>http://192.168.10.10:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>internal-nexus</id>
+            <url>http://192.168.10.10:8081/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>interval:5</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>
