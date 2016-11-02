@@ -13,7 +13,8 @@
     <!-- 启用spring mvc 注解 -->
     <task:annotation-driven/>
     <context:annotation-config/>
-    <context:component-scan base-package="com.pengpeng"/>
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.hailang.sso"/>
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -35,18 +36,6 @@
         <property name="paramName" value="language"/>
     </bean>
 
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <util:list id="beanList">
-                <ref bean="mappingJacksonHttpMessageConverter"/>
-            </util:list>
-        </property>
-    </bean>
-
-
-
-    <bean id="mappingJacksonHttpMessageConverter"
-          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
     <!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/pages/"
           p:suffix=".jsp"/>
